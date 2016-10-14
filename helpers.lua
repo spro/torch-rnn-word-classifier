@@ -20,4 +20,25 @@ function randomSample(list, n)
     return sampled
 end
 
+function unicodeChars(str)
+    return string.gfind(str, "([%z\1-\127\194-\244][\128-\191]*)")
+end
 
+function trim(s)
+    return s:gsub("^%s+", ""):gsub("%s+$", "")
+end
+
+function makeNameInputs(name, n_chars)
+    name = trim(name)
+    local char_vectors = {}
+    for char in unicodeChars(name) do
+        local char_vector = torch.zeros(n_chars)
+        char_vector[all_chars[char]] = 1
+        table.insert(char_vectors, char_vector)
+    end
+    local inputs = torch.zeros(#char_vectors, n_chars)
+    for ci = 1, #char_vectors do
+        inputs[ci] = char_vectors[ci]
+    end
+    return inputs
+end

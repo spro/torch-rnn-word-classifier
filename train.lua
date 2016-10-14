@@ -6,8 +6,6 @@ image = require 'image'
 require 'helpers'
 require 'names'
 
-rho = 10
-embed_size = 50
 hidden_size = 100
 n_chars = n_chars
 n_origins = #origins
@@ -29,26 +27,13 @@ local log_every = 100
 
 criterion = nn.ClassNLLCriterion() -- (torch.Tensor(origin_weights))
 
-function makeBatch()
-    -- local inputs = {}
-    -- local targets = {}
-    -- for ii = 1, 10 do
+function makeExample()
     local item = randomChoice(all_names)
     local origin = item[1]
-    local last_name = item[2]
-    local input = {}
-    for char in string.gfind(last_name, "([%z\1-\127\194-\244][\128-\191]*)") do
-        table.insert(input, all_chars[char])
-    end
-    -- table.insert(inputs, input)
-    -- table.insert(targets, origin)
-    -- end
-    -- print('inputs', inputs)
-    -- print('targets', targets)
-    local input = torch.LongTensor(input)--:view(-1, 1)
+    local name = item[2]
+    local inputs = makeNameInputs(name, n_chars)
     local target = torch.LongTensor({origin})
-    -- local targets = torch.LongTensor(1, input:size()[2]):fill(origin)
-    return input, target, last_name
+    return inputs, target, last_name
 end
 
 local test_input, test_target, test_name = makeBatch()
@@ -62,7 +47,7 @@ print("Total of " .. #all_names .. " names and " .. n_chars .. " chars")
 -- os.exit()
 
 function predict(do_print)
-    local inputs, target, name = makeBatch()
+    local inputs, target, name = makeExample()
     local outputs = net:forward(inputs)
     max_val, max_index = outputs:max(1)
     local predicted = max_index[1]
@@ -83,7 +68,7 @@ feval = function(parameters_new)
     net:forget()
     net:zeroGradParameters()
 
-    local inputs, target = makeBatch()
+    local inputs, target = makeExample()
     local outputs = net:forward(inputs)
     local loss = criterion:forward(outputs, target)
 

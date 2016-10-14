@@ -1,29 +1,18 @@
 require 'nn'
 require 'rnn'
-
-function trim(s)
-    return s:gsub("^%s+", ""):gsub("%s+$", "")
-end
+require 'helpers'
 
 net = torch.load('net.t7')
 origins = torch.load('origins.t7')
 all_chars = torch.load('all_chars.t7')
+n_chars = all_chars.n_chars
 
 function predict(name)
-    name = trim(name)
-
     net:forget()
-
-    local inputs = {}
-    for char in string.gfind(name, "([%z\1-\127\194-\244][\128-\191]*)") do
-        table.insert(inputs, all_chars[char])
-    end
-    local inputs = torch.LongTensor(inputs)--:view(-1, 1)
-    -- print('[predict]', name)
+    local char_vectors = {}
+    local inputs = makeNameInputs(name, n_chars)
     local outputs = net:forward(inputs)
-    -- print('outputs', outputs, outputs:max(2))
     max_val, max_index = outputs:max(1)
-    -- print('max_index', max_index[1][1])
     local predicted = max_index[1]
     altered = -1 * math.log(max_val[1] * -1)
     print(name, origins[predicted] .. '   ', altered)
