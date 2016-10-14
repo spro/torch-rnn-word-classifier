@@ -1,0 +1,16 @@
+html
+    head
+        title Names
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, user-scalable=no')
+        meta(name='apple-mobile-web-app-capable', content='yes')
+        link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css')
+        link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Lora:400,700|Arimo:400,700')
+        link(rel='stylesheet', href="#{base_url || ''}/css/app.css")
+    body
+        #app
+            .spinner-container: .spinner
+                i.fa.fa-spin.fa-circle-o-notch
+                span.loading Loading app...
+        script(src='/socket.io/socket.io.js')
+        script(src="#{base_url || ''}/js/app.js")

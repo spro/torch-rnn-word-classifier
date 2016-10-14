@@ -1,0 +1,58 @@
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+$colors
+    blue: #5af
+    green: #5fa
+    light_gray: #eee
+    lightest_gray: #f7f7f7
+
+$padding
+    small: 5px
+    default: 10px
+
+$sizes
+    bar: 20px
+
+body
+    font: 17px/22px Arimo
+    background: $colors.lightest_gray
+
+input
+    display: block
+    width: 100%
+    -webkit-appearance: none
+    border: none
+    outline: none
+    font: inherit
+    // border-bottom: 2px solid $colors.light_gray
+    background: #fff
+    padding: 0 $padding.small
+    -webkit-transition: all 0.2s
+
+.bar
+    height: 20px
+    background: $colors.blue
+    -webkit-transition: all 0.2s
+    padding: 0 $padding.small
+    display: flex
+    align-items: center
+
+    &.max
+        background: $colors.green
+        opacity: 1.0
+
+.spinner-container, .error-container
+    position: absolute
+    background: #000
+    color: #fff
+    padding: $padding.small
+
+    i.fa
+        margin-right: $padding.small
+
+.error-container
+    background: #900
+
