@@ -36,13 +36,14 @@ function makeExample()
     return inputs, target, last_name
 end
 
-local test_input, test_target, test_name = makeBatch()
-print('test input, target, name:', test_input, test_target, test_name)
-local test_output = net:forward(test_input)
-print('test output:', test_output)
+-- Run a test input through the network
+-- local test_input, test_target, test_name = makeExample()
+-- print('test input, target, name:', test_input, test_target, test_name)
+-- local test_output = net:forward(test_input)
+-- print('test output:', test_output)
+-- print('--------------------------------------------------------------------------------')
 
-print('--------------------------------------------------------------------------------')
-print("Total of " .. #all_names .. " names and " .. n_chars .. " chars")
+print("Begin training with " .. #all_names .. " names and " .. n_chars .. " chars...")
 
 -- os.exit()
 
@@ -109,7 +110,6 @@ end
 n_total = 0
 
 while n_epoch < n_epochs do
-    n_epoch = n_epoch + 1
     n_iter = 0
     err = 0
 
@@ -146,7 +146,7 @@ while n_epoch < n_epochs do
 
     local prediction_percent = n_correct / n_predictions
     table.insert(predictions, {n_epoch, prediction_percent})
-    print("predicted", prediction_percent)
+    print("[epoch " .. n_epoch .. "] predicted", prediction_percent)
     display.plot(predictions, {win='prediction', title='prediction'})
 
     display.image(renderConfusion(conf), {win='conf', title='conf'})
@@ -155,6 +155,8 @@ while n_epoch < n_epochs do
         print("Saving...")
         torch.save('net.t7', net)
     end
+
+    n_epoch = n_epoch + 1
 end
 
 for pi = 1, 50 do

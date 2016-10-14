@@ -25,7 +25,6 @@ function trimFilename(s)
 end
 
 origins = map(origin_filenames, trimFilename)
-print('origins', origins)
 
 all_names = {}
 all_chars = {}
@@ -58,17 +57,14 @@ for oi = 1, #origins do
     origin_counts[oi] = li
 
     if origin_counts[oi] >= max_count then
-        print("> max, 1 to", max_count)
         for ni = 1, max_count do
             table.insert(all_names, randomChoice(origin_names))
         end
     else
-        print("< max, 1 to", origin_counts[oi])
         for ni = 1, origin_counts[oi] do
             table.insert(all_names, origin_names[ni])
         end
         if max_count > origin_counts[oi] then
-            print("more left, 1 to", max_count - origin_counts[oi])
             for ni = 1, (max_count - origin_counts[oi]) do
                 table.insert(all_names, randomChoice(origin_names))
             end
@@ -77,11 +73,10 @@ for oi = 1, #origins do
 end
 
 for oi = 1, #origins do 
-    print("For origin", origins[oi], origin_counts[oi])
     origin_weights[oi] = (#all_names - origin_counts[oi]) / #all_names
 end
 
+all_chars.n_chars = n_chars
 torch.save('all_chars.t7', all_chars)
 torch.save('origins.t7', origins)
-print("all_names", #all_names)
 
