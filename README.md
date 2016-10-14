@@ -37,7 +37,7 @@ data/
 
 Train the network with `th train.lua`. Use [display](https://github.com/szym/display) to watch training progress:
 
-![](https://i.imgur.com/MN6heSS.png)
+![](https://i.imgur.com/cR5FHBJ.png)
 
 ## Prediction
 
