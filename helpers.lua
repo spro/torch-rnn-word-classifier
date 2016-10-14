@@ -28,10 +28,10 @@ function trim(s)
     return s:gsub("^%s+", ""):gsub("%s+$", "")
 end
 
-function makeNameInputs(name, n_chars)
-    name = trim(name)
+function makeWordInputs(word, n_chars)
+    word = trim(word)
     local char_vectors = {}
-    for char in unicodeChars(name) do
+    for char in unicodeChars(word) do
         local char_vector = torch.zeros(n_chars)
         char_vector[all_chars[char]] = 1
         table.insert(char_vectors, char_vector)

@@ -2,25 +2,25 @@ require 'nn'
 require 'rnn'
 require 'helpers'
 
-net = torch.load('net.t7')
-origins = torch.load('origins.t7')
+model = torch.load('model.t7')
+classes = torch.load('classes.t7')
 all_chars = torch.load('all_chars.t7')
 n_chars = all_chars.n_chars
 
-function predict(name)
-    net:forget()
+function predict(word)
+    model:forget()
     local char_vectors = {}
-    local inputs = makeNameInputs(name, n_chars)
-    local outputs = net:forward(inputs)
+    local inputs = makeWordInputs(word, n_chars)
+    local outputs = model:forward(inputs)
     max_val, max_index = outputs:max(1)
     local predicted = max_index[1]
     altered = -1 * math.log(max_val[1] * -1)
-    print(name, origins[predicted] .. '   ', altered)
+    print(word, classes[predicted] .. '   ', altered)
     local predictions = {}
     for pi = 1, outputs:size()[1] do
-        predictions[pi] = {origin=origins[pi], score=outputs[pi]}
+        predictions[pi] = {class=classes[pi], score=outputs[pi]}
     end
-    return origins[predicted], predictions
+    return classes[predicted], predictions
 end
 
 if arg[1] then
