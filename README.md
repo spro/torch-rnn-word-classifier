@@ -50,7 +50,7 @@ Configure training with these options:
 -data_dir            Data directory [data]
 -hidden_size         Hidden LSTM size [200]
 -learning_rate       Learning rate [0.001]
--learning_rate_decay Learning rate [1e-07]
+-learning_rate_decay Learning rate decay [1e-07]
 ```
 
 ## Prediction

@@ -15,7 +15,7 @@ cmd:option('-data_dir', 'data', 'Data directory, containing a text file per clas
 
 cmd:option('-hidden_size', 200, 'Hidden size of LSTM layer')
 cmd:option('-learning_rate', 0.001, 'Learning rate')
-cmd:option('-learning_rate_decay', 1e-7, 'Learning rate')
+cmd:option('-learning_rate_decay', 1e-7, 'Learning rate decay')
 
 opt = cmd:parse(arg)
 
