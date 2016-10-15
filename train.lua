@@ -4,37 +4,45 @@ require 'optim'
 display = require 'display'
 
 require 'helpers'
-require 'data'
 require 'confusion'
 
+-- Parse command line arguments
+
+cmd = torch.CmdLine()
+cmd:text()
+
+cmd:option('-data_dir', 'data', 'Data directory, containing a text file per class')
+
+cmd:option('-hidden_size', 200, 'Hidden size of LSTM layer')
+cmd:option('-learning_rate', 0.001, 'Learning rate')
+cmd:option('-learning_rate_decay', 1e-7, 'Learning rate')
+
+opt = cmd:parse(arg)
+
+require 'data'
+
 -- Training parameters
--- TODO: Command line arguments
 
-hidden_size = 200
-n_chars = n_chars
 n_classes = #classes
-
-learning_rate = 0.001
-learning_rate_decay = 1e-7
-n_iter = 1
 n_iters = 500
-n_iters_total = 0
-n_epoch = 1
 n_epochs = 200
 n_predictions = 100
 log_every = 100
+
+-- State parameters (for plotting)
+n_iters_total = 1
+n_iter = 1
+n_epoch = 1
 err = 0
 errors = {}
 predictions = {}
 
-require 'model' -- Require later because it expects these global parameters
+require 'model' -- Require later because it expects a few global parameters
 
 criterion = nn.ClassNLLCriterion()
 parameters, gradients = model:getParameters()
 
-print(model)
-
--- Functions 
+-- Training-related functions 
 --------------------------------------------------------------------------------
 
 -- Select a random word from the training set and return inputs as a set of
@@ -99,8 +107,8 @@ end
 print("Begin training with " .. #all_words .. " words and " .. n_chars .. " chars...")
 
 local optim_config = {
-	learningRate = learning_rate,
-	learningRateDecay = learning_rate_decay,
+	learningRate = opt.learning_rate,
+	learningRateDecay = opt.learning_rate_decay,
 }
 
 local optim_state = {}

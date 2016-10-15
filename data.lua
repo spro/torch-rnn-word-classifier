@@ -1,8 +1,5 @@
 require 'helpers'
 
-base_dir = 'data'
-ext = 'txt'
-
 -- Reading 
 
 function findFiles(dir, match)
@@ -20,7 +17,7 @@ function trimFilename(s)
     return s:split('/')[2]:split('%.')[1]
 end
 
-class_filenames = findFiles(base_dir, '.' .. ext)
+class_filenames = findFiles(opt.data_dir, '.txt')
 class_counts = {}
 class_weights = {}
 
@@ -36,7 +33,7 @@ for oi = 1, #classes do
     local class_words = {}
     local li = 0
 
-    for line in io.lines(base_dir .. '/' .. class .. '.' .. ext) do
+    for line in io.lines(opt.data_dir .. '/' .. class .. '.txt') do
         li = li + 1
         if li > 1 then
             local word = line
