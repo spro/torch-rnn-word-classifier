@@ -55,7 +55,7 @@ Configure training with these options:
 
 ## Prediction
 
-Every 100 epochs, the network is saved as `model.t7`. As soon as one is saved you can make predictions with `th predict.lua`. Here's an example after 200 epochs &times; 500 iterations with `-hidden_size 200` (around SOME minutes on a recent MacBook Pro CPU):
+Every 100 epochs, the network is saved as `model.t7`. As soon as one is saved you can make predictions with `th predict.lua`. Here's an example after 200 epochs &times; 500 iterations with `-hidden_size 200` (around 15.301 minutes on a recent MacBook Pro CPU):
 
 ```
 Nguyen  Vietnamese      -0.017714772153594
