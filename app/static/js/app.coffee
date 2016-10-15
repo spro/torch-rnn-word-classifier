@@ -87,8 +87,8 @@ App = React.createClass
 
             {@state.predictions?.map (prediction) =>
                 # console.log '[prediction]', prediction
-                <div className={'bar ' + if prediction.max then 'max' else ''} style={width: asPercent(prediction.score), height: asPercent(bar_percent), opacity: scaleBetween(0.2, 1, prediction.score)} key=prediction.origin>
-                    <span>{prediction.origin}</span>
+                <div className={'bar ' + if prediction.max then 'max' else ''} style={width: asPercent(prediction.score), height: asPercent(bar_percent), opacity: scaleBetween(0.2, 1, prediction.score)} key=prediction.class>
+                    <span>{prediction.class}</span>
                 </div>
             }
 

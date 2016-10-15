@@ -141,8 +141,8 @@ App = React.createClass({
             height: asPercent(bar_percent),
             opacity: scaleBetween(0.2, 1, prediction.score)
           },
-          "key": prediction.origin
-        }, React.createElement("span", null, prediction.origin));
+          "key": prediction["class"]
+        }, React.createElement("span", null, prediction["class"]));
       };
     })(this)) : void 0, (this.state.loading ? React.createElement(Spinner, null) : void 0), (this.state.error ? React.createElement(Error, null, this.state.error) : void 0));
   }
