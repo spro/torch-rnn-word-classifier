@@ -1,4 +1,4 @@
-# rnn-word-classifier
+# torch-rnn-word-classifier
 
 Learns to classify words with a LSTM RNN, using Torch and ElementResearch's [rnn package](https://github.com/Element-Research/rnn).
 
